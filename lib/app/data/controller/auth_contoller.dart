@@ -17,10 +17,6 @@ class AuthController extends GetxController {
   TextEditingController emailC = TextEditingController();
   TextEditingController passwordC = TextEditingController();
 
-  @override
-  void onInit() async {
-    super.onInit();
-  }
 
   Future firstinitialized() async {
     currentToken = await storage.read(key: 'access_token');

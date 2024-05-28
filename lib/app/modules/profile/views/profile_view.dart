@@ -9,10 +9,10 @@ class ProfileView extends GetView<ProfileController> {
   const ProfileView({super.key});
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return const Scaffold(
       bottomNavigationBar: CustomBottomNavigationBar(),
       extendBody: true,
-      body: const Center(
+      body: Center(
         child: Text(
           'ProfileView is working',
           style: TextStyle(fontSize: 20),

@@ -9,10 +9,10 @@ class AbsenView extends GetView<AbsenController> {
   const AbsenView({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return const Scaffold(
       bottomNavigationBar: CustomBottomNavigationBar(),
       extendBody: true,
-      body: const Center(
+      body: Center(
         child: Text(
           'AbsenView is working',
           style: TextStyle(fontSize: 20),
