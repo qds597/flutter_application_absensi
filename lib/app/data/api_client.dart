@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 
 class ApiClient {
-  final baseUrl = 'http://127.0.0.1:8000/api';
+  final baseUrl = 'http://localhost:8000/api';
 
   Dio dio = Dio();
 

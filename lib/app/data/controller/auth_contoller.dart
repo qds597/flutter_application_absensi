@@ -17,7 +17,6 @@ class AuthController extends GetxController {
   TextEditingController emailC = TextEditingController();
   TextEditingController passwordC = TextEditingController();
 
-
   Future firstinitialized() async {
     currentToken = await storage.read(key: 'access_token');
     currentEmail = await storage.read(key: 'email');
@@ -25,6 +24,7 @@ class AuthController extends GetxController {
 
   Future login() async {
     try {
+      print('login');
       isLoading.value = true;
       var res = await ApiClient().login(
         emailC.text,
@@ -82,5 +82,4 @@ class AuthController extends GetxController {
       Get.rawSnackbar(message: error.toString());
     }
   }
-
 }
