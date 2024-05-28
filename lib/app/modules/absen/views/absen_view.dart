@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 
+import '../../../../widget/custom_bottom_navigation_bar.dart';
 import '../controllers/absen_controller.dart';
 
 class AbsenView extends GetView<AbsenController> {
@@ -9,10 +10,8 @@ class AbsenView extends GetView<AbsenController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('AbsenView'),
-        centerTitle: true,
-      ),
+      bottomNavigationBar: CustomBottomNavigationBar(),
+      extendBody: true,
       body: const Center(
         child: Text(
           'AbsenView is working',

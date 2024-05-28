@@ -1,9 +1,9 @@
 import 'package:get/get.dart';
 
-import '../../../data/controller/auth_contoller.dart';
+class ForgotPasswordController extends GetxController {
+  //TODO: Implement ForgotPasswordController
 
-class LoginController extends GetxController {
-  final authC = Get.find<AuthController>();
+  final count = 0.obs;
   @override
   void onInit() {
     super.onInit();
@@ -18,4 +18,6 @@ class LoginController extends GetxController {
   void onClose() {
     super.onClose();
   }
+
+  void increment() => count.value++;
 }
