@@ -94,7 +94,7 @@ ProfilPerusahaanModel profilPerusahaanModel = ProfilPerusahaanModel();
 Future<ProfilPerusahaanModel> getProfilePerusahaan(
     {required String token}) async {
   try {
-    var res = await ProfilePerusahaanApi().getProfilePerusahaan(
+    var res = await ProfilePerusahaanApi().getProfilPerusahaan(
       accesstoken: token,
     );
     if (res.data['success'] == true) {
