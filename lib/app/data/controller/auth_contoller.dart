@@ -1,11 +1,13 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_application_absensi/app/data/API/profil_perusahaan_api.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
 
 import '../../routes/app_pages.dart';
 import '../api_client.dart';
+import '../models/profil_perusahaan_model.dart';
 
 class AuthController extends GetxController {
   final storage = const FlutterSecureStorage();
@@ -20,6 +22,9 @@ class AuthController extends GetxController {
   Future firstinitialized() async {
     currentToken = await storage.read(key: 'access_token');
     currentEmail = await storage.read(key: 'email');
+    if (currentToken != null) {
+      await getProfilePerusahaan(token: currentToken!);
+    }
   }
 
   Future login() async {
@@ -81,5 +86,33 @@ class AuthController extends GetxController {
       isLoading.value = false;
       Get.rawSnackbar(message: error.toString());
     }
+  }
+}
+
+ProfilPerusahaanModel profilPerusahaanModel = ProfilPerusahaanModel();
+
+Future<ProfilPerusahaanModel> getProfilePerusahaan(
+    {required String token}) async {
+  try {
+    var res = await ProfilePerusahaanApi().getProfilePerusahaan(
+      accesstoken: token,
+    );
+    if (res.data['success'] == true) {
+      print(res.data);
+      profilPerusahaanModel = profilPerusahaanModelFromJson(res.data);
+      return profilPerusahaanModel;
+    } else {
+      Get.rawSnackbar(
+        messageText: Text(res.data['message'].toString()),
+        backgroundColor: Colors.red.shade300,
+      );
+      return profilPerusahaanModel;
+    }
+  } catch (e) {
+    Get.rawSnackbar(
+      messageText: Text(e.toString()),
+      backgroundColor: Colors.red.shade300,
+    );
+    return profilPerusahaanModel;
   }
 }
