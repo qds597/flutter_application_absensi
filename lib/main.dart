@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_absensi/app/data/controller/presence_controller.dart';
 
 import 'package:get/get.dart';
 
@@ -18,6 +19,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     Get.put(PageIndexController(), permanent: true);
     final authC = Get.put(AuthController(), permanent: true);
+    Get.put(PresenceController(), permanent: true);
+    Get.put(PageIndexController(), permanent: true);
     return FutureBuilder(
       future: authC.firstinitialized(),
       builder: (context, snapshot) {
@@ -40,4 +43,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-

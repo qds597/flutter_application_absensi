@@ -14,14 +14,14 @@ class AuthController extends GetxController {
   RxBool isLoading = false.obs;
   RxBool obsecureText = true.obs;
   String? currentToken;
-  String? currentEmail;
+  String? currentUsersId;
 
   TextEditingController emailC = TextEditingController();
   TextEditingController passwordC = TextEditingController();
 
   Future firstinitialized() async {
     currentToken = await storage.read(key: 'access_token');
-    currentEmail = await storage.read(key: 'email');
+    currentUsersId = await storage.read(key: 'users_id');
     if (currentToken != null) {
       await getProfilePerusahaan(token: currentToken!);
     }
@@ -39,9 +39,10 @@ class AuthController extends GetxController {
       if (res.data['success'] == true) {
         await storage.write(
             key: 'access_token', value: res.data['access_token']);
-        await storage.write(key: 'email', value: res.data['email']);
+        await storage.write(
+            key: 'users_id', value: res.data['users_id'].toString());
         currentToken = await storage.read(key: 'access_token');
-        currentEmail = await storage.read(key: 'email');
+        currentUsersId = await storage.read(key: 'users_id');
         Get.offAllNamed(
           Routes.HOME,
         );
@@ -68,9 +69,9 @@ class AuthController extends GetxController {
       isLoading.value = false;
       if (res.data['success'] == true) {
         await storage.delete(key: 'access_token');
-        await storage.delete(key: 'email');
+        await storage.delete(key: 'users_id');
         currentToken = null;
-        currentEmail = null;
+        currentUsersId = null;
         Get.offAllNamed(Routes.LOGIN);
         Get.rawSnackbar(
           messageText: Text(res.data['message']),
