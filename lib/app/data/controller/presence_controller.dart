@@ -20,9 +20,9 @@ class PresenceController extends GetxController {
           await placemarkFromCoordinates(position.latitude, position.longitude);
       String address =
           "${placemarks.first.street}, ${placemarks.first.subLocality}, ${placemarks.first.locality}";
-      double distance = Geolocator.bearingBetween(
-          double.parse(authC.ProfilPerusahaanModel.data!.latitude!),
-          double.parse(authC.ProfilPerusahaanModel.data!.longitude!),
+      double distance = Geolocator.distanceBetween(
+          double.parse(authC.profilPerusahaanModel.data!.latitude!),
+          double.parse(authC.profilPerusahaanModel.data!.longitude!),
           position.altitude,
           position.longitude);
       print(position);

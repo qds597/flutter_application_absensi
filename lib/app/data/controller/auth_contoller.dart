@@ -88,32 +88,32 @@ class AuthController extends GetxController {
       Get.rawSnackbar(message: error.toString());
     }
   }
-}
 
-ProfilPerusahaanModel profilPerusahaanModel = ProfilPerusahaanModel();
+  ProfilPerusahaanModel profilPerusahaanModel = ProfilPerusahaanModel();
 
-Future<ProfilPerusahaanModel> getProfilePerusahaan(
-    {required String token}) async {
-  try {
-    var res = await ProfilePerusahaanApi().getProfilPerusahaan(
-      accesstoken: token,
-    );
-    if (res.data['success'] == true) {
-      print(res.data);
-      profilPerusahaanModel = profilPerusahaanModelFromJson(res.data);
-      return profilPerusahaanModel;
-    } else {
+  Future<ProfilPerusahaanModel> getProfilePerusahaan(
+      {required String token}) async {
+    try {
+      var res = await ProfilePerusahaanApi().getProfilPerusahaan(
+        accesstoken: token,
+      );
+      if (res.data['success'] == true) {
+        print(res.data);
+        profilPerusahaanModel = profilPerusahaanModelFromJson(res.data);
+        return profilPerusahaanModel;
+      } else {
+        Get.rawSnackbar(
+          messageText: Text(res.data['message'].toString()),
+          backgroundColor: Colors.red.shade300,
+        );
+        return profilPerusahaanModel;
+      }
+    } catch (e) {
       Get.rawSnackbar(
-        messageText: Text(res.data['message'].toString()),
+        messageText: Text(e.toString()),
         backgroundColor: Colors.red.shade300,
       );
       return profilPerusahaanModel;
     }
-  } catch (e) {
-    Get.rawSnackbar(
-      messageText: Text(e.toString()),
-      backgroundColor: Colors.red.shade300,
-    );
-    return profilPerusahaanModel;
   }
 }
