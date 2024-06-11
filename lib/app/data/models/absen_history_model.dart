@@ -1,84 +1,92 @@
 // To parse this JSON data, do
 //
-//     final absenHariIniModel = absenHariIniModelFromJson(jsonString);
+//     final absenHistoryModel = absenHistoryModelFromJson(jsonString);
 
 import 'dart:convert';
 
-AbsenHariIniModel absenHariIniModelFromJson(String str) =>
-    AbsenHariIniModel.fromJson(json.decode(str));
+AbsenHistoryModel absenHistoryModelFromJson(String str) =>
+    AbsenHistoryModel.fromJson(json.decode(str));
 
-String absenHariIniModelToJson(AbsenHariIniModel data) =>
+String absenHistoryModelToJson(AbsenHistoryModel data) =>
     json.encode(data.toJson());
 
-class AbsenHariIniModel {
+class AbsenHistoryModel {
   bool? success;
-  Data? data;
+  List<Datum>? data;
   String? message;
 
-  AbsenHariIniModel({
+  AbsenHistoryModel({
     this.success,
     this.data,
     this.message,
   });
 
-  factory AbsenHariIniModel.fromJson(Map<String, dynamic> json) =>
-      AbsenHariIniModel(
+  factory AbsenHistoryModel.fromJson(Map<String, dynamic> json) =>
+      AbsenHistoryModel(
         success: json["success"],
-        data: json["data"] == null ? null : Data.fromJson(json["data"]),
+        data: json["data"] == null
+            ? []
+            : List<Datum>.from(json["data"]!.map((x) => Datum.fromJson(x))),
         message: json["message"],
       );
 
   Map<String, dynamic> toJson() => {
         "success": success,
-        "data": data?.toJson(),
+        "data": data == null
+            ? []
+            : List<dynamic>.from(data!.map((x) => x.toJson())),
         "message": message,
       };
 }
 
-class Data {
-  String? usersId;
+class Datum {
+  int? id;
+  int? usersId;
   String? lokasiUser;
   String? waktuAbsenMasuk;
+  dynamic waktuAbsenPulang;
   String? tanggalHariIni;
   String? status;
-  DateTime? updatedAt;
   DateTime? createdAt;
-  int? id;
+  DateTime? updatedAt;
 
-  Data({
+  Datum({
+    this.id,
     this.usersId,
     this.lokasiUser,
     this.waktuAbsenMasuk,
+    this.waktuAbsenPulang,
     this.tanggalHariIni,
     this.status,
-    this.updatedAt,
     this.createdAt,
-    this.id,
+    this.updatedAt,
   });
 
-  factory Data.fromJson(Map<String, dynamic> json) => Data(
+  factory Datum.fromJson(Map<String, dynamic> json) => Datum(
+        id: json["id"],
         usersId: json["users_id"],
         lokasiUser: json["lokasi_user"],
         waktuAbsenMasuk: json["waktu_absen_masuk"],
+        waktuAbsenPulang: json["waktu_absen_pulang"],
         tanggalHariIni: json["tanggal_hari_ini"],
         status: json["status"],
-        updatedAt: json["updated_at"] == null
-            ? null
-            : DateTime.parse(json["updated_at"]),
         createdAt: json["created_at"] == null
             ? null
             : DateTime.parse(json["created_at"]),
-        id: json["id"],
+        updatedAt: json["updated_at"] == null
+            ? null
+            : DateTime.parse(json["updated_at"]),
       );
 
   Map<String, dynamic> toJson() => {
+        "id": id,
         "users_id": usersId,
         "lokasi_user": lokasiUser,
         "waktu_absen_masuk": waktuAbsenMasuk,
+        "waktu_absen_pulang": waktuAbsenPulang,
         "tanggal_hari_ini": tanggalHariIni,
         "status": status,
-        "updated_at": updatedAt?.toIso8601String(),
         "created_at": createdAt?.toIso8601String(),
-        "id": id,
+        "updated_at": updatedAt?.toIso8601String(),
       };
 }

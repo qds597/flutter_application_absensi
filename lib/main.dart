@@ -17,7 +17,6 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Get.put(PageIndexController(), permanent: true);
     final authC = Get.put(AuthController(), permanent: true);
     Get.put(PresenceController(), permanent: true);
     Get.put(PageIndexController(), permanent: true);
