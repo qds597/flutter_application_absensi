@@ -72,4 +72,28 @@ class PresenceApi extends ApiClient {
       return e.response!;
     }
   }
+
+  Future<Response> absenPulang({
+    required String accesstoken,
+    required String id,
+    required String waktuAbsenPulang,
+  }) async {
+    try {
+      final DateTime now = DateTime.now();
+      final DateFormat formatter = DateFormat('yyyy-MM-dd');
+      final String formatted = formatter.format(now);
+      var response = await dio.put('$baseUrl/pegawai/absen/$id',
+          data: {
+            'waktu_absen_pulang': waktuAbsenPulang,
+            'tanggal_hari_ini': formatted,
+          },
+          options:
+              Options(contentType: Headers.formUrlEncodedContentType, headers: {
+            'Authorization': 'Bearer $accesstoken',
+          }));
+      return response;
+    } on DioException catch (e) {
+      return e.response!;
+    }
+  }
 }

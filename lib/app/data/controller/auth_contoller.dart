@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_application_absensi/app/data/API/profil_perusahaan_api.dart';
+import 'package:flutter_application_absensi/app/data/models/absen_hari_ini_model.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
 
@@ -18,6 +19,8 @@ class AuthController extends GetxController {
 
   TextEditingController emailC = TextEditingController();
   TextEditingController passwordC = TextEditingController();
+
+  AbsenHariIniModel absenHariIniModel = AbsenHariIniModel();
 
   Future firstinitialized() async {
     currentToken = await storage.read(key: 'access_token');

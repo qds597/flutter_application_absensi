@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_absensi/app/data/controller/page_index_controller.dart';
 import 'package:get/get.dart';
 
+import '../app/data/controller/page_index_controller.dart';
 import '../app/style/app_color.dart';
 
 class CustomBottomNavigationBar extends GetView<PageIndexController> {
@@ -19,7 +19,7 @@ class CustomBottomNavigationBar extends GetView<PageIndexController> {
           Positioned(
             bottom: 0,
             child: Container(
-              height: 65,
+              height: 67,
               width: MediaQuery.of(context).size.width,
               decoration: BoxDecoration(
                 border: Border(
@@ -105,21 +105,17 @@ class CustomBottomNavigationBar extends GetView<PageIndexController> {
             child: SizedBox(
               width: 64,
               height: 64,
-              child: FloatingActionButton(
-                onPressed: () => controller.changePage(1),
-                elevation: 0,
-                child: const Icon(Icons.fingerprint),
-                // child: (controller.presenceController.isLoading.isFalse)
-                //     ? SvgPicture.asset(
-                //         'assets/icons/fingerprint.svg',
-                //         color: Colors.white,
-                //       )
-                //     : const Center(
-                //         child: CircularProgressIndicator(
-                //           color: Colors.white,
-                //         ),
-                //       ),
-              ),
+              child: Obx(() => FloatingActionButton(
+                    onPressed: () => controller.changePage(1),
+                    elevation: 0,
+                    child: (controller.present.isLoading.isFalse)
+                        ? const Icon(Icons.fingerprint)
+                        : const Center(
+                            child: CircularProgressIndicator(
+                              color: Colors.white,
+                            ),
+                          ),
+                  )),
             ),
           ),
         ],

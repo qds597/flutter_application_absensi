@@ -36,49 +36,58 @@ class AbsenHariIniModel {
 }
 
 class Data {
-  String? usersId;
-  String? lokasiUser;
-  String? waktuAbsenMasuk;
-  String? tanggalHariIni;
-  String? status;
-  DateTime? updatedAt;
-  DateTime? createdAt;
   int? id;
+  int? usersId;
+  String? lokasiUser;
+  DateTime? waktuAbsenMasuk;
+  dynamic waktuAbsenPulang;
+  DateTime? tanggalHariIni;
+  String? status;
+  DateTime? createdAt;
+  DateTime? updatedAt;
 
   Data({
+    this.id,
     this.usersId,
     this.lokasiUser,
     this.waktuAbsenMasuk,
+    this.waktuAbsenPulang,
     this.tanggalHariIni,
     this.status,
-    this.updatedAt,
     this.createdAt,
-    this.id,
+    this.updatedAt,
   });
 
   factory Data.fromJson(Map<String, dynamic> json) => Data(
+        id: json["id"],
         usersId: json["users_id"],
         lokasiUser: json["lokasi_user"],
-        waktuAbsenMasuk: json["waktu_absen_masuk"],
-        tanggalHariIni: json["tanggal_hari_ini"],
-        status: json["status"],
-        updatedAt: json["updated_at"] == null
+        waktuAbsenMasuk: json["waktu_absen_masuk"] == null
             ? null
-            : DateTime.parse(json["updated_at"]),
+            : DateTime.parse(json["waktu_absen_masuk"]),
+        waktuAbsenPulang: json["waktu_absen_pulang"],
+        tanggalHariIni: json["tanggal_hari_ini"] == null
+            ? null
+            : DateTime.parse(json["tanggal_hari_ini"]),
+        status: json["status"],
         createdAt: json["created_at"] == null
             ? null
             : DateTime.parse(json["created_at"]),
-        id: json["id"],
+        updatedAt: json["updated_at"] == null
+            ? null
+            : DateTime.parse(json["updated_at"]),
       );
 
   Map<String, dynamic> toJson() => {
+        "id": id,
         "users_id": usersId,
         "lokasi_user": lokasiUser,
-        "waktu_absen_masuk": waktuAbsenMasuk,
-        "tanggal_hari_ini": tanggalHariIni,
+        "waktu_absen_masuk": waktuAbsenMasuk?.toIso8601String(),
+        "waktu_absen_pulang": waktuAbsenPulang,
+        "tanggal_hari_ini":
+            "${tanggalHariIni!.year.toString().padLeft(4, '0')}-${tanggalHariIni!.month.toString().padLeft(2, '0')}-${tanggalHariIni!.day.toString().padLeft(2, '0')}",
         "status": status,
-        "updated_at": updatedAt?.toIso8601String(),
         "created_at": createdAt?.toIso8601String(),
-        "id": id,
+        "updated_at": updatedAt?.toIso8601String(),
       };
 }
