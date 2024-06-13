@@ -25,11 +25,12 @@ class PresenceController extends GetxController {
           double.parse(authC.profilPerusahaanModel.data!.longitude!),
           position.altitude,
           position.longitude);
-      print(position);
-      print(address);
-      print(distance);
+      //print(position);
+      //print(address);
+      //print(distance);
       // presence ( Store  to Database)
       if (distance < 300) {
+        //cek data sudah absen masuk atau belum
         CustomAlertDialog.showPresenceAlert(
           title: "Are you want check in?",
           message: "You need to confirm before you\ncan do presence now",
