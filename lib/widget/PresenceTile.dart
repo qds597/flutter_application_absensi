@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_absensi/app/routes/app_pages.dart';
+import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
+import '../app/data/models/absen_history_model.dart';
 import '../app/style/app_color.dart';
 
 class PresenceTile extends StatelessWidget {

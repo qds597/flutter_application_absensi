@@ -77,6 +77,16 @@ class PresenceController extends GetxController {
     }
   }
 
+  Future<void> processPresencePulang(String id) async {
+    try {
+      isLoading.value = true;
+      var res = await PresenceApi().absenPulang(
+        accesstoken: authC.currentToken!,
+      id: id, waktuAbsenPulang: DateTime.now().toString(),
+      );
+    }
+  }
+
   Future<Map<String, dynamic>> _determinePosition() async {
     bool serviceEnabled;
     LocationPermission permission;
