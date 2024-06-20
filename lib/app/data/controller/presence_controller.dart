@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_absensi/app/data/API/presence_api.dart';
 import 'package:flutter_application_absensi/app/data/controller/auth_contoller.dart';
+import 'package:flutter_application_absensi/app/routes/app_pages.dart';
 import 'package:flutter_application_absensi/widget/dialog/custom_alert_dialog.dart';
 import 'package:flutter_application_absensi/widget/toast/custom_toast.dart';
 import 'package:geocoding/geocoding.dart';
@@ -31,19 +32,32 @@ class PresenceController extends GetxController {
       // presence ( Store  to Database)
       if (distance < 300) {
         //cek data sudah absen masuk atau belum
-        CustomAlertDialog.showPresenceAlert(
-          title: "Are you want check in?",
-          message: "You need to confirm before you\ncan do presence now",
-          onCancel: () => Get.back(),
-          onConfirm: () async {
-            await processPresence(position, address, distance);
-          },
-        );
+        if (authC.absenHariIniModel.data == null) {
+          CustomAlertDialog.showPresenceAlert(
+            title: "Are you want check in?",
+            message: "You need to confirm before you\ncan do presence now",
+            onCancel: () => Get.back(),
+            onConfirm: () async {
+              await processPresence(position, address, distance);
+            },
+          );
+        } else {
+          CustomAlertDialog.showPresenceAlert(
+            title: "Are you want check in?",
+            message: "You need to confirm before you\ncan do presence now",
+            onCancel: () => Get.back(),
+            onConfirm: () async {
+              await processPresencePulang(
+                  authC.absenHariIniModel.data!.id.toString());
+            },
+          );
+        }
       } else {
         CustomToast.errorToast(
             'Tidak bisa absen', 'Lokasi kamu lebih dari 200 meter dari kantor');
       }
       isLoading.value = false;
+      Get.offAllNamed(Routes.HOME);
     } else {
       isLoading.value = false;
       Get.snackbar("Terjadi kesalahan", determinePosition["message"]);
@@ -82,8 +96,22 @@ class PresenceController extends GetxController {
       isLoading.value = true;
       var res = await PresenceApi().absenPulang(
         accesstoken: authC.currentToken!,
-      id: id, waktuAbsenPulang: DateTime.now().toString(),
+        id: id,
+        waktuAbsenPulang: DateTime.now().toString(),
       );
+      isLoading.value = false;
+      if (res.data['success'] == true) {
+        Get.back();
+        CustomToast.successToast("Success", res.data['meassage'].toString());
+      } else {
+        Get.rawSnackbar(
+          messageText: Text(res.data['message'].toString()),
+          backgroundColor: Colors.red.shade300,
+        );
+      }
+    } catch (error) {
+      isLoading.value = false;
+      Get.rawSnackbar(message: error.toString());
     }
   }
 
