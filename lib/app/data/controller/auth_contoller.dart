@@ -26,13 +26,13 @@ class AuthController extends GetxController {
     currentToken = await storage.read(key: 'access_token');
     currentUsersId = await storage.read(key: 'users_id');
     if (currentToken != null) {
-      await getProfilePerusahaan(token: currentToken!);
+      await getProfilPerusahaan(token: currentToken!);
     }
   }
 
   Future login() async {
     try {
-      print('login');
+      //print('login');
       isLoading.value = true;
       var res = await ApiClient().login(
         emailC.text,
@@ -94,7 +94,7 @@ class AuthController extends GetxController {
 
   ProfilPerusahaanModel profilPerusahaanModel = ProfilPerusahaanModel();
 
-  Future<ProfilPerusahaanModel> getProfilePerusahaan(
+  Future<ProfilPerusahaanModel> getProfilPerusahaan(
       {required String token}) async {
     try {
       var res = await ProfilePerusahaanApi().getProfilPerusahaan(

@@ -21,10 +21,12 @@ class PresenceApi extends ApiClient {
           'waktu_absen_masuk': waktuAbsenMasuk,
           'tanggal_hari_ini': DateTime.now(),
         },
-        options:
-            Options(contentType: Headers.formUrlEncodedContentType, headers: {
-          'Authorization': 'Bearer $accesstoken',
-        }),
+        options: Options(
+          contentType: Headers.formUrlEncodedContentType,
+          headers: {
+            'Authorization': 'Bearer $accesstoken',
+          },
+        ),
       );
       return response;
     } on DioException catch (e) {
